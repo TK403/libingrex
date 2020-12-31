@@ -1,27 +1,26 @@
-from ingrex import Intel, Utils
+from ingrex import Intel, utils
+
 
 def main():
-    "main function"
+    """main function"""
     field = {
-        'minLngE6': 166071535,
-        'maxLngE6': 166793004,
-        'minLatE6': 39741368,
-        'maxLatE6': 40175495,
+        "minLng": 166.071535,
+        "maxLng": 166.793004,
+        "minLat": 39.741368,
+        "maxLat": 40.175495,
     }
-    with open('cookies') as cookies:
-        cookies = cookies.read().strip()
-
-    minxtile, maxytile = Utils.calc_tile(field['minLngE6']/1E6, field['minLatE6']/1E6, 15)
-    maxxtile, minytile = Utils.calc_tile(field['maxLngE6']/1E6, field['maxLatE6']/1E6, 15)
-    for xtile in range(minxtile, maxxtile + 1):
-        for ytile in range(minytile, maxytile + 1):
-            tilekey = '15_{}_{}_8_8_25'.format(xtile, ytile)
-            intel = Intel(cookies, field)
-            result = intel.fetch_map([tilekey])
-            entities = result['map'][tilekey]['gameEntities']
+    min_x_tile, max_y_tile = utils.calc_tile(field["minLng"], field["minLat"], 15)
+    max_x_tile, min_y_tile = utils.calc_tile(field["maxLng"], field["maxLat"], 15)
+    for x_tile in range(min_x_tile, max_x_tile + 1):
+        for y_tile in range(min_y_tile, max_y_tile + 1):
+            tile_key = "15_{}_{}_8_8_25".format(x_tile, y_tile)
+            intel = Intel(sessionid="")
+            result = intel.fetch_map([tile_key])
+            entities = result["map"][tile_key]["gameEntities"]
             for entity in entities:
-                if entity[0].endswith('.9'):
+                if entity[0].endswith(".9"):
                     print(entity)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

@@ -1,8 +1,9 @@
-"Ingrex praser deal with message"
+"""Ingrex parser deal with message"""
 from datetime import datetime, timedelta
 
+
 class Message(object):
-    "Message object"
+    """Message object"""
     def __init__(self, raw_msg):
         self.raw = raw_msg
         self.guid = raw_msg[0]
